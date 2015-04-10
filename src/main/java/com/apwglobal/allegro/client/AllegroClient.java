@@ -4,13 +4,14 @@ import com.apwglobal.allegro.client.json.OptionalTypeAdapterFactory;
 import com.apwglobal.allegro.client.service.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.*;
+import com.squareup.okhttp.ConnectionPool;
+import com.squareup.okhttp.OkHttpClient;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
-import java.io.IOException;
-import java.net.Proxy;
+import java.util.Base64;
 
 public class AllegroClient {
 
@@ -77,20 +78,7 @@ public class AllegroClient {
 
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setConnectionPool(connectionPool);
-            okHttpClient.setAuthenticator(new Authenticator() {
-                @Override
-                public Request authenticate(Proxy proxy, Response response) throws IOException {
-                    String basic = Credentials.basic(username, password);
-                    return response.request().newBuilder()
-                            .header("Authorization", basic)
-                            .build();
-                }
 
-                @Override
-                public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
-                    return null;
-                }
-            });
             Gson gson = new GsonBuilder()
                     .registerTypeAdapterFactory(new OptionalTypeAdapterFactory())
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
@@ -101,6 +89,7 @@ public class AllegroClient {
                     .setClient(new OkClient(okHttpClient))
                     .setConverter(new GsonConverter(gson))
                     .setLogLevel(logLevel)
+                    .setRequestInterceptor(new BasicAuthInterceptor(username, password))
                     .build();
 
             client.auctionService = restAdapter.create(IAuctionService.class);
@@ -111,6 +100,28 @@ public class AllegroClient {
 
             return client;
         }
+
+        private class BasicAuthInterceptor implements RequestInterceptor {
+
+            private String username;
+            private String password;
+
+            public BasicAuthInterceptor(String username, String password) {
+                this.username = username;
+                this.password = password;
+            }
+
+            @Override
+            public void intercept(RequestFacade requestFacade) {
+                String authorizationValue = encodeCredentialsForBasicAuthorization();
+                requestFacade.addHeader("Authorization", authorizationValue);
+            }
+            private String encodeCredentialsForBasicAuthorization() {
+                final String userAndPassword = username + ":" + password;
+                return "Basic " + Base64.getEncoder().encodeToString(userAndPassword.getBytes());
+            }
+        }
+
     }
 
 }
