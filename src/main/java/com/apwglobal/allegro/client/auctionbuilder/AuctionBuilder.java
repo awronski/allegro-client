@@ -110,6 +110,11 @@ public class AuctionBuilder {
         return this;
     }
 
+    public AuctionBuilder image(byte[] src) {
+        this.image = Base64.getEncoder().encodeToString(src);
+        return this;
+    }
+
     public AuctionBuilder desc(String desc) {
         this.desc = desc;
         return this;
