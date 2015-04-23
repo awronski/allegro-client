@@ -20,6 +20,7 @@ public class AllegroClient {
     private IJournalService journalService;
     private IFormFieldService formFieldService;
     private IPaymentService paymentService;
+    private IFeedbackService feedbackService;
 
     public IAuctionService getAuctionService() {
         return auctionService;
@@ -35,6 +36,9 @@ public class AllegroClient {
     }
     public IPaymentService getPaymentService() {
         return paymentService;
+    }
+    public IFeedbackService getFeedbackService() {
+        return feedbackService;
     }
 
     public static class Builder {
@@ -97,6 +101,7 @@ public class AllegroClient {
             client.journalService = restAdapter.create(IJournalService.class);
             client.formFieldService = restAdapter.create(IFormFieldService.class);
             client.paymentService = restAdapter.create(IPaymentService.class);
+            client.feedbackService = restAdapter.create(IFeedbackService.class);
 
             return client;
         }
