@@ -92,6 +92,14 @@ List<Journal> lastJournals = client.getJournalService().search(searchJournal);
 List<Deal> lastDeals = client.getDealService().getLastDeals(10)
 ```
 
+## Feedbacks
+```java
+List<WaitingFeedback> waitingFeedbacks = client.getFeedbackService().waitingFeedbackOnlyForPaidOrders();
+
+List<CreateFeedback> feedbacks = new ArrayList<>(..);
+List<CreatedFeedback> createdFeedbacks = client.getFeedbackService().create(feedbacks);
+```
+
 ## Categories' Forms
 ```java
 List<FormField> fields = client.getFormFieldService().getFormFields(76661, true);
