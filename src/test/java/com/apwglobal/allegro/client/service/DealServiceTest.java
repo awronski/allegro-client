@@ -25,26 +25,6 @@ public class DealServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void shouldReturnDealsAfterTransactionId() {
-        List<Deal> lastDeals = client.getDealService().getLastDeals(100)
-                .stream()
-                .filter(d -> d.getTransactionId().isPresent())
-                .collect(toList());
-
-        if (!lastDeals.isEmpty()) {
-            Long minTransactionId = lastDeals
-                    .stream()
-                    .min(comparing(deal -> deal.getTransactionId().get()))
-                    .get()
-                    .getTransactionId()
-                    .get();
-
-            List<Deal> after = client.getDealService().getDealsAfterTransactionId(minTransactionId);
-            assertTrue(lastDeals.size() > after.size());
-        }
-    }
-
-    @Test
     public void shouldReturnDealsAfterEventId() {
         List<Deal> lastDeals = client.getDealService().getLastDeals(100)
                 .stream()

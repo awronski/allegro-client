@@ -12,9 +12,6 @@ public interface IDealService {
     @GET("/deals")
     List<Deal> getLastDeals(@Query("limit") int limit);
 
-    @GET("/deals/after/transactionId/{transactionId}")
-    List<Deal> getDealsAfterTransactionId(@Path("transactionId") long transactionId);
-
     @GET("/deals/after/eventId/{eventId}")
     List<Deal> getDealsAfterEventId(@Path("eventId") long eventId);
 
