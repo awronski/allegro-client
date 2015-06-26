@@ -15,6 +15,8 @@ import java.util.Base64;
 
 public class AllegroClient {
 
+    private long clientId;
+
     private IAuctionService auctionService;
     private IDealService dealService;
     private IJournalService journalService;
@@ -40,11 +42,16 @@ public class AllegroClient {
     public IFeedbackService getFeedbackService() {
         return feedbackService;
     }
+    public long getClientId() {
+        return clientId;
+    }
+
 
     public static class Builder {
         private String endpoint;
         private String username;
         private String password;
+        private long clientId;
         private RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.BASIC;
         private ConnectionPool connectionPool;
 
@@ -60,6 +67,11 @@ public class AllegroClient {
 
         public Builder password(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder clientId(long clientId) {
+            this.clientId = clientId;
             return this;
         }
 
@@ -79,6 +91,7 @@ public class AllegroClient {
             }
 
             AllegroClient client = new AllegroClient();
+            client.clientId = clientId;
 
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setConnectionPool(connectionPool);
