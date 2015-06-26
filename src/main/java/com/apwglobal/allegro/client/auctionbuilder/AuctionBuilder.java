@@ -21,7 +21,6 @@ public class AuctionBuilder {
 
     private String title;
     private int category;
-    private int shopCategory;
     private Duration duration = UNLIMITED;
     private SellType sellType = SHOP;
     private int qty = 1;
@@ -56,11 +55,6 @@ public class AuctionBuilder {
 
     public AuctionBuilder category(int category) {
         this.category = category;
-        return this;
-    }
-
-    public AuctionBuilder shopCategory(int shopCategory) {
-        this.shopCategory = shopCategory;
         return this;
     }
 
@@ -195,7 +189,6 @@ public class AuctionBuilder {
 
         fields.add(new NewAuctionField(1, Type.STRING, title));
         fields.add(new NewAuctionField(2, Type.INTEGER, category));
-        fields.add(new NewAuctionField(31, Type.INTEGER, shopCategory));
         fields.add(new NewAuctionField(4, Type.INTEGER, duration.getType()));
         fields.add(new NewAuctionField(29, Type.INTEGER, sellType.getType()));
         fields.add(new NewAuctionField(5, Type.INTEGER, qty));
