@@ -2,6 +2,7 @@ package com.apwglobal.allegro.client.service;
 
 import com.apwglobal.allegro.client.AllegroClient;
 import org.junit.BeforeClass;
+import retrofit.RestAdapter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ public class AbstractIntegrationTest {
                 .endpoint(address)
                 .username(user)
                 .password(password)
+                .logLevel(RestAdapter.LogLevel.FULL)
                 .build();
     }
 
