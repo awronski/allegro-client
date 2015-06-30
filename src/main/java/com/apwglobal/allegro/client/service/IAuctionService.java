@@ -17,6 +17,9 @@ public interface IAuctionService {
     @GET("/auctions/{itemId}")
     Optional<Auction> getAuctionById(@Path("itemId") long itemId);
 
+    @GET("/auctions/{itemId}/fields")
+    List<AuctionField> getAuctionFieldsById(@Path("itemId") long itemId);
+
     @PUT("/auctions/{itemId}/changeQty")
     ChangedQty changeQty(@Path("itemId") long itemId, @Query("newQty") int newQty);
 
@@ -25,5 +28,8 @@ public interface IAuctionService {
 
     @POST("/auctions/create")
     CreatedAuction create(@Body List<AuctionField> fields);
+
+    @PUT("/auctions/{itemId}/change")
+    ChangedAuctionInfo change(@Path("itemId") long itemId, @Body List<AuctionField> fields);
 
 }

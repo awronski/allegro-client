@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,14 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
+    public void shouldReturnAuctionFields() {
+        List<Auction> auctions = client.getAuctionService().getOpenAuctions(true);
+        if (!auctions.isEmpty()) {
+            List<AuctionField> fields = client.getAuctionService().getAuctionFieldsById(auctions.get(0).getId());
+            assertFalse(fields.isEmpty());
+        }
+    }
+    @Test
     public void shouldReturnAuction() {
         List<Auction> auctions = client.getAuctionService().getAllAuctions();
         if (!auctions.isEmpty()) {
@@ -64,7 +73,7 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void shoudlCreateAuction() throws URISyntaxException {
+    public void shouldCreateAuction() throws URISyntaxException {
         URI img = getClass().getResource("/resources/test.png").toURI();
 
         List<AuctionField> fields = new AuctionBuilder()
@@ -90,6 +99,17 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
                 .build();
         CreatedAuction createdAuction = client.getAuctionService().create(fields);
         assertNotNull(createdAuction);
+    }
+
+    @Test
+    public void shouldChangeAuction() {
+        List<Auction> auctions = client.getAuctionService().getAllAuctions();
+        if (!auctions.isEmpty()) {
+            List<AuctionField> fields = Collections.singletonList(
+                    new AuctionField<>(FieldId.TITLE, FieldType.Type.STRING, "zawieszki masa perłowa kwadraty zieleń -8 sztuk q9"));
+            ChangedAuctionInfo change = client.getAuctionService().change(auctions.get(0).getId(), fields);
+            assertNotNull(change);
+        }
     }
 
 }
