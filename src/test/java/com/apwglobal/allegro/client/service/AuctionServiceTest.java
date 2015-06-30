@@ -67,7 +67,7 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
     public void shoudlCreateAuction() throws URISyntaxException {
         URI img = getClass().getResource("/resources/test.png").toURI();
 
-        List<NewAuctionField> fields = new AuctionBuilder()
+        List<AuctionField> fields = new AuctionBuilder()
                 .category(76661)
                 .title(String.format("Testing %tFT%<tRZ", new Date()))
                 .city("Warszawa")

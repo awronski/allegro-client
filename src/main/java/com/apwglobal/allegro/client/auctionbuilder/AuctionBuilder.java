@@ -1,6 +1,7 @@
 package com.apwglobal.allegro.client.auctionbuilder;
 
-import com.apwglobal.nice.domain.NewAuctionField;
+import com.apwglobal.nice.domain.AuctionField;
+import com.apwglobal.nice.domain.FieldId;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -184,44 +185,44 @@ public class AuctionBuilder {
         return this;
     }
 
-    public List<NewAuctionField> build() {
-        List<NewAuctionField> fields = new ArrayList<>();
+    public List<AuctionField> build() {
+        List<AuctionField> fields = new ArrayList<>();
 
-        fields.add(new NewAuctionField(1, Type.STRING, title));
-        fields.add(new NewAuctionField(2, Type.INTEGER, category));
-        fields.add(new NewAuctionField(4, Type.INTEGER, duration.getType()));
-        fields.add(new NewAuctionField(29, Type.INTEGER, sellType.getType()));
-        fields.add(new NewAuctionField(5, Type.INTEGER, qty));
-        fields.add(new NewAuctionField(8, Type.FLOAT, price));
-        fields.add(new NewAuctionField(9, Type.INTEGER, country));
-        fields.add(new NewAuctionField(10, Type.INTEGER, state.getType()));
-        fields.add(new NewAuctionField(11, Type.STRING, city));
-        fields.add(new NewAuctionField(12, Type.INTEGER, transportPaidBy.getType()));
-        fields.add(new NewAuctionField(14, Type.INTEGER, invoice.getType()));
-        fields.add(new NewAuctionField(24, Type.STRING, desc));
-        fields.add(new NewAuctionField(28, Type.INTEGER, units.getType()));
-        fields.add(new NewAuctionField(32, Type.STRING, zip));
+        fields.add(new AuctionField(FieldId.TITLE, Type.STRING, title));
+        fields.add(new AuctionField(FieldId.CATEGORY, Type.INTEGER, category));
+        fields.add(new AuctionField(FieldId.DURATION, Type.INTEGER, duration.getType()));
+        fields.add(new AuctionField(FieldId.SELL_TYPE, Type.INTEGER, sellType.getType()));
+        fields.add(new AuctionField(FieldId.QTY, Type.INTEGER, qty));
+        fields.add(new AuctionField(FieldId.PRICE, Type.FLOAT, price));
+        fields.add(new AuctionField(FieldId.COUNTRY, Type.INTEGER, country));
+        fields.add(new AuctionField(FieldId.STATE, Type.INTEGER, state.getType()));
+        fields.add(new AuctionField(FieldId.CITY, Type.STRING, city));
+        fields.add(new AuctionField(FieldId.TRANSPORT_PAID_BY, Type.INTEGER, transportPaidBy.getType()));
+        fields.add(new AuctionField(FieldId.INVOICE, Type.INTEGER, invoice.getType()));
+        fields.add(new AuctionField(FieldId.DESC, Type.STRING, desc));
+        fields.add(new AuctionField(FieldId.UNIT, Type.INTEGER, units.getType()));
+        fields.add(new AuctionField(FieldId.ZIP, Type.STRING, zip));
 
         if (priceForLetter != null && priceForNextItemInLetter != null && qtyInLetter != null) {
-            fields.add(new NewAuctionField(43, Type.FLOAT, priceForLetter));
-            fields.add(new NewAuctionField(143, Type.FLOAT, priceForNextItemInLetter));
-            fields.add(new NewAuctionField(243, Type.INTEGER, qtyInLetter));
+            fields.add(new AuctionField(FieldId.PRICE_FOR_LETTER, Type.FLOAT, priceForLetter));
+            fields.add(new AuctionField(FieldId.PRICE_FOR_LETTER_NEXT_UNIT, Type.FLOAT, priceForNextItemInLetter));
+            fields.add(new AuctionField(FieldId.MAX_QTY_IN_LETTER, Type.INTEGER, qtyInLetter));
         }
 
         if (priceForCourier != null && priceForNextItemInCourier != null && qtyInCourier != null) {
-            fields.add(new NewAuctionField(44, Type.FLOAT, priceForCourier));
-            fields.add(new NewAuctionField(144, Type.FLOAT, priceForNextItemInCourier));
-            fields.add(new NewAuctionField(244, Type.INTEGER, qtyInCourier));
+            fields.add(new AuctionField(FieldId.PRICE_FOR_COURIER, Type.FLOAT, priceForCourier));
+            fields.add(new AuctionField(FieldId.PRICE_FOR_COURIER_NEXT_UNIT, Type.FLOAT, priceForNextItemInCourier));
+            fields.add(new AuctionField(FieldId.MAX_QTY_IN_COURIER, Type.INTEGER, qtyInCourier));
         }
 
-        fields.add(new NewAuctionField(340, Type.INTEGER, sendingTime.getType()));
+        fields.add(new AuctionField(FieldId.SENDING_TIME, Type.INTEGER, sendingTime.getType()));
 
         if (color != null) {
-            new NewAuctionField(3110, Type.INTEGER, color.getType());
+            new AuctionField(FieldId.COLOR, Type.INTEGER, color.getType());
         }
 
         if (image != null) {
-            fields.add(new NewAuctionField(16, Type.IMAGE, image));
+            fields.add(new AuctionField(FieldId.IMAGE, Type.IMAGE, image));
         }
 
         return fields;

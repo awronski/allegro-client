@@ -1,6 +1,6 @@
 package com.apwglobal.allegro.client.auctionbuilder;
 
-import com.apwglobal.nice.domain.NewAuctionField;
+import com.apwglobal.nice.domain.AuctionField;
 import org.junit.Test;
 
 import java.util.Date;
@@ -12,7 +12,7 @@ public class AuctionBuilderTest {
 
     @Test
     public void buildWithDefaultValuesTest() {
-        List<NewAuctionField> fields = new AuctionBuilder()
+        List<AuctionField> fields = new AuctionBuilder()
                 .category(76661)
                 .title(String.format("Testing %tFT%<tRZ", new Date()))
                 .city("Warszawa")
