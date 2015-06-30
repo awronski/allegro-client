@@ -1,7 +1,10 @@
 package com.apwglobal.allegro.client;
 
+import com.apwglobal.allegro.client.json.AllegroErrorHandler;
+import com.apwglobal.allegro.client.json.AllegroExceptionTypeAdapter;
 import com.apwglobal.allegro.client.json.OptionalTypeAdapterFactory;
 import com.apwglobal.allegro.client.service.*;
+import com.apwglobal.nice.exception.AllegroException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.ConnectionPool;
@@ -98,6 +101,7 @@ public class AllegroClient {
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapterFactory(new OptionalTypeAdapterFactory())
+                    .registerTypeAdapter(AllegroException.class, new AllegroExceptionTypeAdapter())
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
                     .create();
 
@@ -107,6 +111,7 @@ public class AllegroClient {
                     .setConverter(new GsonConverter(gson))
                     .setLogLevel(logLevel)
                     .setRequestInterceptor(new BasicAuthInterceptor(username, password))
+                    .setErrorHandler(new AllegroErrorHandler())
                     .build();
 
             client.auctionService = restAdapter.create(IAuctionService.class);
