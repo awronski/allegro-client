@@ -3,6 +3,7 @@ package com.apwglobal.allegro.client.service;
 import com.apwglobal.nice.command.SearchPayment;
 import com.apwglobal.nice.domain.Payment;
 import com.apwglobal.nice.domain.PaymentProcessed;
+import com.apwglobal.nice.exception.AllegroException;
 import org.junit.Test;
 import retrofit.RetrofitError;
 
@@ -49,7 +50,7 @@ public class PaymentServiceTest extends AbstractIntegrationTest {
         }
     }
 
-    @Test(expected = RetrofitError.class)
+    @Test(expected = AllegroException.class)
     public void shouldThorwException() {
         client.getPaymentService().process(0, 1.11, "123");
     }
