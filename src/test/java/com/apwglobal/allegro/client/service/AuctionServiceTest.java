@@ -60,6 +60,9 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
         if (!auctions.isEmpty()) {
             ChangedQty changedQty = client.getAuctionService().changeQty(auctions.get(0).getId(), 3);
             assertEquals(3, changedQty.getLeft());
+
+            ChangedPrice changedPrice = client.getAuctionService().changePrice(auctions.get(0).getId(), 9.49);
+            assertNotNull(changedPrice);
         }
     }
 

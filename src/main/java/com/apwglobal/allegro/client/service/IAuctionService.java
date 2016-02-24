@@ -23,6 +23,9 @@ public interface IAuctionService {
     @PUT("/auctions/{itemId}/changeQty")
     ChangedQty changeQty(@Path("itemId") long itemId, @Query("newQty") int newQty);
 
+    @PUT("/auctions/{itemId}/changePrice")
+    ChangedPrice changePrice(@Path("itemId") long itemId, @Query("newPrice") double newPrice);
+
     @PUT("/auctions/finish")
     List<FinishAuctionFailure> finish(@Query("itemsIds") List<Long> itemsIds);
 
