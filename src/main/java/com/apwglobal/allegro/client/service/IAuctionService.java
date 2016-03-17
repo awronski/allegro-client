@@ -14,6 +14,9 @@ public interface IAuctionService {
     @GET("/auctions")
     List<Auction> getOpenAuctions(@Query("open") boolean open);
 
+    @GET("/auctions")
+    List<Auction> getOpenAuctionsWithSale(@Query("open") boolean open, @Query("withSale") boolean withSale);
+
     @GET("/auctions/{itemId}")
     Optional<Auction> getAuctionById(@Path("itemId") long itemId);
 
@@ -22,6 +25,9 @@ public interface IAuctionService {
 
     @PUT("/auctions/{itemId}/changeQty")
     ChangedQty changeQty(@Path("itemId") long itemId, @Query("newQty") int newQty);
+
+    @PUT("/auctions/{itemId}/extraOptions")
+    boolean updateExtraOptions(@Path("itemId") long itemId);
 
     @PUT("/auctions/{itemId}/changePrice")
     ChangedPrice changePrice(@Path("itemId") long itemId, @Query("newPrice") double newPrice);
