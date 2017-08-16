@@ -36,7 +36,7 @@ public interface IAuctionService {
     List<FinishAuctionFailure> finish(@Query("itemsIds") List<Long> itemsIds);
 
     @POST("/auctions/create")
-    CreatedAuction create(@Body List<AuctionField> fields);
+    CreatedAuction create(@Body NewAuction newAuction);
 
     @PUT("/auctions/{itemId}/change")
     ChangedAuctionInfo change(@Path("itemId") long itemId, @Body List<AuctionField> fields);
