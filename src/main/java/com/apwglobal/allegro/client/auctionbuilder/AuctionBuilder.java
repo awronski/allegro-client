@@ -30,6 +30,7 @@ public class AuctionBuilder {
     private Double price;
     private String image;
     private String desc;
+    private String newDesc;
 
     private String city;
     private String zip;
@@ -115,6 +116,12 @@ public class AuctionBuilder {
         return this;
     }
 
+    public AuctionBuilder newDesc(String newDesc) {
+        this.newDesc = newDesc;
+        return this;
+    }
+
+
     public AuctionBuilder city(String city) {
         this.city = city;
         return this;
@@ -188,20 +195,24 @@ public class AuctionBuilder {
     public List<AuctionField> build() {
         List<AuctionField> fields = new ArrayList<>();
 
-        fields.add(new AuctionField(FieldId.TITLE, Type.STRING, title));
-        fields.add(new AuctionField(FieldId.CATEGORY, Type.INTEGER, category));
-        fields.add(new AuctionField(FieldId.DURATION, Type.INTEGER, duration.getType()));
-        fields.add(new AuctionField(FieldId.SELL_TYPE, Type.INTEGER, sellType.getType()));
-        fields.add(new AuctionField(FieldId.QTY, Type.INTEGER, qty));
-        fields.add(new AuctionField(FieldId.PRICE, Type.FLOAT, price));
-        fields.add(new AuctionField(FieldId.COUNTRY, Type.INTEGER, country));
-        fields.add(new AuctionField(FieldId.STATE, Type.INTEGER, state.getType()));
-        fields.add(new AuctionField(FieldId.CITY, Type.STRING, city));
-        fields.add(new AuctionField(FieldId.TRANSPORT_PAID_BY, Type.INTEGER, transportPaidBy.getType()));
-        fields.add(new AuctionField(FieldId.INVOICE, Type.INTEGER, invoice.getType()));
-        fields.add(new AuctionField(FieldId.DESC, Type.STRING, desc));
-        fields.add(new AuctionField(FieldId.UNIT, Type.INTEGER, units.getType()));
-        fields.add(new AuctionField(FieldId.ZIP, Type.STRING, zip));
+        fields.add(new AuctionField<>(FieldId.TITLE, Type.STRING, title));
+        fields.add(new AuctionField<>(FieldId.CATEGORY, Type.INTEGER, category));
+        fields.add(new AuctionField<>(FieldId.DURATION, Type.INTEGER, duration.getType()));
+        fields.add(new AuctionField<>(FieldId.SELL_TYPE, Type.INTEGER, sellType.getType()));
+        fields.add(new AuctionField<>(FieldId.QTY, Type.INTEGER, qty));
+        fields.add(new AuctionField<>(FieldId.PRICE, Type.FLOAT, price));
+        fields.add(new AuctionField<>(FieldId.COUNTRY, Type.INTEGER, country));
+        fields.add(new AuctionField<>(FieldId.STATE, Type.INTEGER, state.getType()));
+        fields.add(new AuctionField<>(FieldId.CITY, Type.STRING, city));
+        fields.add(new AuctionField<>(FieldId.TRANSPORT_PAID_BY, Type.INTEGER, transportPaidBy.getType()));
+        fields.add(new AuctionField<>(FieldId.INVOICE, Type.INTEGER, invoice.getType()));
+        if (newDesc != null) {
+            fields.add(new AuctionField<>(FieldId.NEW_DESC, Type.STRING, newDesc));
+        } else {
+            fields.add(new AuctionField<>(FieldId.DESC, Type.STRING, desc));
+        }
+        fields.add(new AuctionField<>(FieldId.UNIT, Type.INTEGER, units.getType()));
+        fields.add(new AuctionField<>(FieldId.ZIP, Type.STRING, zip));
 
         if (priceForLetter != null && priceForNextItemInLetter != null && qtyInLetter != null) {
             fields.add(new AuctionField(FieldId.PRICE_FOR_LETTER, Type.FLOAT, priceForLetter));
