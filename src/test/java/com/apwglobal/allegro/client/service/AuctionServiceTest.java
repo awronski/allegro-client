@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 
 public class AuctionServiceTest extends AbstractIntegrationTest {
@@ -68,11 +67,12 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
 
     @Test
     public void shouldFinishAuction() {
-        List<Auction> auctions = client.getAuctionService().getOpenAuctions(true);
-        if (!auctions.isEmpty()) {
-            List<FinishAuctionFailure> finish = client.getAuctionService().finish(singletonList(auctions.get(0).getId()));
-            assertTrue(finish.isEmpty());
-        }
+        boolean value = client.getAuctionService().updateExtraOptions(5335857537L);
+//        List<Auction> auctions = client.getAuctionService().getOpenAuctions(true);
+//        if (!auctions.isEmpty()) {
+//            List<FinishAuctionFailure> finish = client.getAuctionService().finish(singletonList(auctions.get(0).getId()));
+//            assertTrue(finish.isEmpty());
+//        }
     }
 
     @Test
@@ -100,7 +100,8 @@ public class AuctionServiceTest extends AbstractIntegrationTest {
                 .image(img)
 
                 .build();
-        CreatedAuction createdAuction = client.getAuctionService().create(fields);
+        NewAuction newAuction = new NewAuction(fields, new SalesConditions("1", "2", "3"));
+        CreatedAuction createdAuction = client.getAuctionService().create(newAuction);
         assertNotNull(createdAuction);
     }
 
