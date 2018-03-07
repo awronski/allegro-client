@@ -6,7 +6,7 @@
 
     <groupId>com.apwglobal</groupId>
     <artifactId>allegro-client</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.apwglobal</groupId>
             <artifactId>allegro-nice-domain</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
         </dependency>
 
         <dependency>
